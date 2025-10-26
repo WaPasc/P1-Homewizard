@@ -1,2 +1,5 @@
 # P1-Homewizard
-Should tranform to a docker compose stack that can be used for accessing a website that gives you data of your homewizard P1-port including a database.
+
+## About The Project
+This is a docker-compose stack using grafana, influxdb with a python script to visualize your energy details measured by the HomeWizard P1 Meter.
+
