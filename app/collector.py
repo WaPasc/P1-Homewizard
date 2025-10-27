@@ -1,4 +1,7 @@
 import os
+import asyncio
+import signal
+import sys
 import time
 from typing import Optional, Any
 import requests
@@ -64,9 +67,19 @@ def write_to_influxdb(data: dict[str, Any]):
     except Exception as e:
         print(f"Error writing to InfluxDB: {e}")
 
-
-if __name__ == "__main__":
+async def main():
     while True:
         data = fetch_homewizard_data()
         write_to_influxdb(data)
-        time.sleep(5)
+        await asyncio.sleep(5) # Non-blocking sleep
+
+def handle_exit(sig, frame):
+    print("Stopping collector gracefully...")
+    sys.exit(0)
+
+
+signal.signal(signal.SIGINT, handle_exit)
+signal.signal(signal.SIGTERM, handle_exit)
+
+if __name__ == "__main__":
+    asyncio.run(main())

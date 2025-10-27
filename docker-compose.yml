@@ -30,6 +30,18 @@ services:
       - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
       - INFLUXDB_ADMIN_TOKEN=${INFLUXDB_ADMIN_TOKEN}
       - INFLUXDB_ORG=${INFLUXDB_ORG}
+  homewizard-collector:
+    build: ./app
+    container_name: homewizard-collector
+    depends_on:
+      - influxdb
+    environment:
+      - HOMEWIZARD_IP=${HOMEWIZARD_IP}
+      - HOMEWIZARD_TOKEN=${HOMEWIZARD_TOKEN}
+      - INFLUXDB_URL=${INFLUXDB_URL}
+      - INFLUXDB_ADMIN_TOKEN=${INFLUXDB_ADMIN_TOKEN}
+      - INFLUXDB_ORG=${INFLUXDB_ORG}
+      - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
 volumes:
   influxdb-storage:
   grafana-storage:
