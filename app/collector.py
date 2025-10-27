@@ -2,6 +2,8 @@ import os
 from typing import Optional, Any
 import requests
 from dotenv import load_dotenv
+import influxdb_client
+from influxdb_client.client.write_api import SYNCHRONOUS
 
 load_dotenv()
 
@@ -11,6 +13,7 @@ HOMEWIZARD_TOKEN = os.getenv('HOMEWIZARD_TOKEN')
 INFLUXDB_TOKEN = os.getenv('INFLUXDB_ADMIN_TOKEN')
 INFLUXDB_ORG = os.getenv('INFLUXDB_ORG')
 INFLUXDB_BUCKET = os.getenv('INFLUXDB_BUCKET')
+INFLUXDB_URL = "https://influxdb:8086"
 
 def fetch_homewizard_data() -> Optional[dict[str, Any]]:
     """Fetches latest measurements from homewizard device."""
